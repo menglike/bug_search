@@ -15,45 +15,57 @@ def index():
 
 @path.route('/post_form', methods=['POST', ])
 def post_form():
-    vul_name = request.form.get('vul_name', '').strip()
-    vul_num = request.form.get('vul_num', '').strip()
-    app_name = request.form.get('app_name', '').strip()
-    vul_level = request.form.get('vul_level', '').strip()
 
-    url = 'https://api.liangmlk.cn/risk_bug.php';
+    url = 'https://www.oscs1024.com/oscs/v1/intelligence/list';
 
     data = {
-        'page': request.form.get('page', 1),
-        "perPage": request.form.get('perPage', 20)
+        'page': int(request.form.get('page', 1)),
+        'per_page':int(request.form.get('per_page',10)),
     }
-    if vul_name:
-        data['vul_name'] = vul_name
-    if vul_num:
-        data['vul_num'] = vul_num
-    if vul_level:
-        data['vul_level'] = vul_level
-    if app_name:
-        data['app_name'] = app_name
-
-    res = requests.post(url, verify=False, data=json.dumps(data)).json()
-    rows = res['data']['rows']
+    res = requests.post('https://www.oscs1024.com/oscs/v1/intelligence/list',  json=data).json()
+    rows = res['data']['data']
     for i in rows:
         idx = rows.index(i)
-        rows[idx]['vul_name'] = i['vul_name'].replace('<i>', '[').replace('</i>', ']')
-        rows[idx]['app_name'] = i['app_name'].replace('<i>', '[').replace('</i>', ']')
-        if i['vul_level'] == 1:
-            rows[idx]['vul_level'] = '低'
-        if i['vul_level'] == 2:
-            rows[idx]['vul_level'] = '中'
-        if i['vul_level'] == 3:
-            rows[idx]['vul_level'] = '高'
-
+        rows[idx]['created_at'] = i['created_at'].replace('T', ' ').replace('+', ' ')[0:20]
+   
     respos = {
         "status": 0,
         "data": {
-            'rows': res['data']['rows'],
-            "count": res['data']['count']
+            'rows': rows,
+            "count": res['data']['total']
         },
+        'msg': ''
+    }
+    return json.dumps(respos)
+
+@path.route('/detail', methods=['GET' ])
+def detail():
+    mps = request.args.get('id')
+  
+
+
+  
+    json_data = {
+        'vuln_no': mps,
+    }
+
+    res = requests.post('https://www.oscs1024.com/oscs/v1/vdb/info',  json=json_data).json()
+
+    rows = res['data'][0]
+
+    effect = ''
+    url = ''
+    for i in rows['references']:
+        url += i['url']+"\r\n" 
+    rows['url'] =url
+    for i in rows['effect']:
+        effect += i['name']+'@'+str(i['affected_version'])+"\r\n\n\n\r\t"
+    rows['effect'] = effect
+
+
+    respos = {
+        "status": 0,
+        "data":rows,
         'msg': ''
     }
     return json.dumps(respos)
