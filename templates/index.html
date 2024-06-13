@@ -1,4 +1,4 @@
-{% include  "header.html" %}
+{% include "header.html" %}
 <div id="root" class="app-wrapper"></div>
 <script src="/static/js/sdk.js"></script>
 
@@ -16,7 +16,7 @@
                         {
                             "title": "漏洞信息查询",
                             "body": [
-
+                                
 
                                 {
                                     "type": "crud",
@@ -46,74 +46,21 @@
                                     "columns": [
 
                                         {
-                                            "name": "vul_name",
-                                            "label": "漏洞标题",
-                                            "searchable": {
-                                                'name': "vul_name",
-                                                "type": "input-text",
-                                                "placeholder": "漏洞标题",
-                                            }
+                                            "name": "title",
+                                            "label": "漏洞标题"
                                         },
                                         {
-                                            "name": "cnnvd",
-                                            "label": "CNNVD漏洞编号",
-                                            "searchable": {
-                                                'name': "vul_num",
-                                                "type": "input-text",
-                                                "placeholder": "CNNVD漏洞编号",
-                                            }
+                                            "name": "project[0]['project_name']",
+                                            "label": "应用名称"
                                         },
                                         {
-                                            "name": "cnvd",
-                                            "label": "CNVD漏洞编号",
-                                            "searchable": {
-                                                'name': "vul_num",
-                                                "type": "input-text",
-                                                "placeholder": "CNVD漏洞编号",
-                                            }
-                                        },
-                                        {
-                                            "name": "cve",
-                                            "label": "CVE漏洞编号",
-                                            "searchable": {
-                                                'name': "vul_num",
-                                                "type": "input-text",
-                                                "placeholder": "CVE漏洞编号",
-                                            }
-                                        },
-                                        {
-                                            "name": "app_name",
-                                            "label": "应用名称",
-                                            "searchable": {
-                                                "name": 'app_name',
-                                                "type": "input-text",
-                                                "placeholder": "应用名称",
-                                            }
-
-                                        },
-                                        {
-                                            "name": "vul_level",
+                                            "name": "level",
                                             "label": "漏洞等级",
-                                            "searchable": {
-                                                "type": "select",
-                                                "name": "vul_level",
-                                                "label": "漏洞等级",
-                                                "placeholder": "漏洞等级",
-                                                "options": [
-                                                    {"label": '低', "value": 1},
-                                                    {"label": '中', "value": 2},
-                                                    {"label": '高', "value": 3},
-                                                ],
-                                            }
 
                                         },
                                         {
-                                            "name": "vul_main_type_name",
-                                            "label": "漏洞类型",
-                                        },
-                                        {
-                                            "name": "vul_sub_type_name",
-                                            "label": "漏洞子类型",
+                                            "name": "created_at",
+                                            "label": "发布时间",
                                         },
 
                                         {
@@ -123,12 +70,12 @@
                                                 {
                                                     "label": "查看详情",
                                                     "type": "button",
-                                                    "actionType": "dialog",
+                                                    "actionType": "ajax",
                                                     "level": "warning",
-                                                    "size":"md",
                                                     "actions": [],
-                                                    "dialog": {
-                                                        "title": "${vul_name}",
+                                                    "api": "get:/detail?id=${mps}",
+                                                    "feedback": {
+                                                        "size": "lg",
                                                         "body": [
                                                             {
                                                                 "type": "table-view",
@@ -144,7 +91,7 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "${app_name}"
+                                                                                    "tpl": "${title}"
                                                                                 }
                                                                             },
 
@@ -162,25 +109,7 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "${vul_main_type_name}"
-                                                                                }
-                                                                            },
-
-                                                                        ]
-                                                                    },
-                                                                    {
-                                                                        "tds": [
-                                                                            {
-
-                                                                                "body": {
-                                                                                    "type": "tpl",
-                                                                                    "tpl": "漏洞子类型"
-                                                                                }
-                                                                            },
-                                                                            {
-                                                                                "body": {
-                                                                                    "type": "tpl",
-                                                                                    "tpl": "${vul_sub_type_name}"
+                                                                                    "tpl": "${vuln_type}"
                                                                                 }
                                                                             },
 
@@ -198,7 +127,25 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "${vul_summary}"
+                                                                                    "tpl": "${description}"
+                                                                                }
+                                                                            },
+
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tds": [
+                                                                            {
+
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "漏洞等级"
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${level}"
                                                                                 }
                                                                             },
 
@@ -207,63 +154,97 @@
                                                                         ]
                                                                     },
                                                                     {
-                                                                                "tds": [
-                                                                                    {
+                                                                        "tds": [
+                                                                            {
 
-                                                                                        "body": {
-                                                                                            "type": "tpl",
-                                                                                            "tpl": "修复方案"
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "body": {
-                                                                                            "type": "tpl",
-                                                                                            "tpl": "${vul_solution}"
-                                                                                        }
-                                                                                    },
-
-                                                                                ]
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "修复方案"
+                                                                                }
                                                                             },
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${soulution_data[0]}"
+                                                                                }
+                                                                            },
+
+                                                                        ]
+                                                                    },
                                                                     {
-                                                                                "tds": [
-                                                                                    {
+                                                                        "tds": [
+                                                                            {
 
-                                                                                        "body": {
-                                                                                            "type": "tpl",
-                                                                                            "tpl": "漏洞链接"
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "body": {
-                                                                                            "type": "tpl",
-                                                                                            "tpl": "${vul_ref}"
-                                                                                        }
-                                                                                    },
-
-                                                                                ]
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "POC"
+                                                                                }
                                                                             },
-                                                                     {
-                                                                                "tds": [
-                                                                                    {
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${troubleshooting[0]}"
+                                                                                }
+                                                                            },
 
-                                                                                        "body": {
-                                                                                            "type": "tpl",
-                                                                                            "tpl": "漏洞版本"
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "body": {
-                                                                                            "type": "each",
-                                                                                            "name":"app_version",
-                                                                                            "items":{
-                                                                                                "type":"tpl",
-                                                                                                "tpl":"<%= data.logic %> <%= data.version %><br/>"
-                                                                                            }
-                                                                                        }
-                                                                                    },
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tds": [
+                                                                            {
 
-                                                                                ]
-                                                                     },
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "CVE编号"
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${cve_id}"
+                                                                                }
+                                                                            },
+
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tds": [
+                                                                            {
+
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "漏洞版本"
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${effect}",
+
+                                                                                }
+                                                                            },
+
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tds": [
+                                                                            {
+
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "参考链接"
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${url}",
+
+                                                                                }
+                                                                            },
+
+                                                                        ]
+                                                                    },
                                                                 ]
                                                             }
                                                         ]
@@ -274,7 +255,7 @@
                                                     "type": "button",
                                                     "actionType": "url",
                                                     "level": "primary",
-                                                    "visibleOn":"vul_ref!=''",
+                                                    "visibleOn": "vul_ref!=''",
                                                     "link": "${vul_ref}"
                                                 }
 
@@ -291,9 +272,9 @@
                     ]
                 },
                 {
-                    "type":"alert",
-                    "body":"有问题可以联系wx:cqwanhl",
-                    "className":"text-center"
+                    "type": "alert",
+                    "body": "有问题可以联系wx:cqwanhl",
+                    "className": "text-center"
                 }
 
             ]
@@ -303,4 +284,4 @@
 </script>
 
 
-{% include  "footer.html" %}
+{% include "footer.html" %}
