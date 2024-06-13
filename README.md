@@ -12,6 +12,8 @@
 
 3 当然可以选择supervisor进行部署，根据实际情况自行部署<br/>
 
+访问地址：http://localhost:7777/index
+
 页面预览：
   ![image](WX20230109-091733@2x.png)
 
