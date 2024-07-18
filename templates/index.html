@@ -41,8 +41,33 @@
                                         "reload"
                                     ],
                                     "bulkActions": [],
-                                    "footerToolbar": ["statistics", "pagination", "switch-per-page",
-                                    ],
+                                    "footerToolbar": ["statistics", "pagination", "switch-per-page",],
+                                    "filter": {
+      "title": "条件搜索",
+      "body": [
+        {
+          "type": "group",
+          "body": [
+            {
+              "type": "input-text",
+              "name": "vuln_no",
+              "label": "漏洞编号",
+              "clearable": true,
+              "placeholder": "请输入漏洞编号，例 CVE-2022-32159",
+              "size":"lg"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        
+        {
+          "type": "submit",
+          "level": "primary",
+          "label": "查询"
+        }
+      ]
+    },
                                     "columns": [
 
                                         {
@@ -85,8 +110,10 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "应用"
-                                                                                }
+                                                                                    "tpl": "应用",
+                                                                                    
+                                                                                },
+                                                                                "width":"20%"
                                                                             },
                                                                             {
                                                                                 "body": {
@@ -201,7 +228,26 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "${cve_id}"
+                                                                                    "tpl": "${cve_id|raw}",
+                                                                                    
+                                                                                }
+                                                                            },
+
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "tds": [
+                                                                            {
+
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "CVSS评分"
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "body": {
+                                                                                    "type": "tpl",
+                                                                                    "tpl": "${cvss_score}"
                                                                                 }
                                                                             },
 
@@ -219,7 +265,7 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "${effect}",
+                                                                                    "tpl": "${effect|raw}",
 
                                                                                 }
                                                                             },
@@ -238,7 +284,7 @@
                                                                             {
                                                                                 "body": {
                                                                                     "type": "tpl",
-                                                                                    "tpl": "${url}",
+                                                                                    "tpl": "${url|raw}",
 
                                                                                 }
                                                                             },
