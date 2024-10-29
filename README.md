@@ -14,14 +14,14 @@
 2 启动服务： python main.py runserver --reload，默认端口7777<br/>
 3 当然也可以选择supervisor进行部署，根据实际情况自行部署<br/>
 
-访问地址：http://localhost:7777/ 或者 http://localhost:7777/index
+访问地址：http://localhost:7777/ 或者 http://localhost:7777/index<br/>
 页面预览：
   ![image](WX20230109-091733@2x.png)
 
 更新日志：<br/>
 
 2024.10.28 发布v2.2<br/>
-1.已经增加了Dockerfile，可以自行完成镜像的构建
+1.已经增加了Dockerfile，可以自行完成镜像的构建<br/>
 2.优化了部分页面样式
 <br/>
 
