@@ -5,6 +5,10 @@
 仅依赖Flask,requests，Amis是百度开源的低代码前端框架
 # 漏洞情报包含：组件漏洞 + 软件漏洞 + 系统漏洞
 
+# docker-compose部署方式（推荐）
+1. git clone https://github.com/menglike/bug_search && cd bug_search
+2. docker-compose up -d
+
 # docker部署方式（推荐）
 1. git clone https://github.com/menglike/bug_search && cd bug_search && docker build -t  bug_search:v2 .
 2. docker run --name bugsearch2 -p 7777:7777 -d bug_search:v2
@@ -42,5 +46,5 @@
 如果这个项目对您有帮助，请我喝一杯瑞幸！<br/>
   ![image](12.png)<br/>
 
-TODO: 1.提供Docker-compose部署方式
+TODO: 1.提供Docker-compose部署方式<br/>
       2.增加邮件发送消息报警功能
