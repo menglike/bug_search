@@ -8,6 +8,7 @@ urllib3.disable_warnings()
 path = Blueprint('path', __name__)
 
 
+@path.route('/', methods=['GET', "POST"])
 @path.route('/index', methods=['GET', "POST"])
 def index():
     return render_template("index.html")

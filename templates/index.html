@@ -8,7 +8,7 @@
         // 通过替换下面这个配置来生成不同页面
         let amisJSON = {
             "type": "page",
-            "title": "漏洞查询",
+            "title": "[觅迹]开源漏洞情报平台",
             "body": [
                 {
                     "type": "tabs",
@@ -16,7 +16,7 @@
                         {
                             "title": "漏洞信息查询",
                             "body": [
-                                
+
 
                                 {
                                     "type": "crud",
@@ -43,31 +43,32 @@
                                     "bulkActions": [],
                                     "footerToolbar": ["statistics", "pagination", "switch-per-page",],
                                     "filter": {
-      "title": "条件搜索",
-      "body": [
-        {
-          "type": "group",
-          "body": [
-            {
-              "type": "input-text",
-              "name": "vuln_no",
-              "label": "漏洞编号",
-              "clearable": true,
-              "placeholder": "请输入漏洞编号，例 CVE-2022-32159",
-              "size":"lg"
-            }
-          ]
-        }
-      ],
-      "actions": [
-        
-        {
-          "type": "submit",
-          "level": "primary",
-          "label": "查询"
-        }
-      ]
-    },
+                                        "title": "搜索",
+                                        "body": [
+                                            {
+                                                "type": "group",
+                                                "body": [
+                                                    {
+                                                        "type": "input-text",
+                                                        "name": "vuln_no",
+                                                        "label": "漏洞编号",
+                                                        "clearable": true,
+                                                        "placeholder": "请输入漏洞编号，例 CVE-2022-32159",
+                                                        "size": "lg",
+                                                        "remark": "目前只支持全匹配",
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "actions": [
+
+                                            {
+                                                "type": "submit",
+                                                "level": "primary",
+                                                "label": "查询"
+                                            }
+                                        ]
+                                    },
                                     "columns": [
 
                                         {
@@ -97,10 +98,13 @@
                                                     "type": "button",
                                                     "actionType": "ajax",
                                                     "level": "warning",
-                                                    "actions": [],
+                                                    "actions": [
+                                                        
+                                                    ],
                                                     "api": "get:/detail?id=${mps}",
                                                     "feedback": {
                                                         "size": "lg",
+                                                        "title": "详情",
                                                         "body": [
                                                             {
                                                                 "type": "table-view",
@@ -111,9 +115,9 @@
                                                                                 "body": {
                                                                                     "type": "tpl",
                                                                                     "tpl": "应用",
-                                                                                    
+
                                                                                 },
-                                                                                "width":"20%"
+                                                                                "width": "20%"
                                                                             },
                                                                             {
                                                                                 "body": {
@@ -229,7 +233,7 @@
                                                                                 "body": {
                                                                                     "type": "tpl",
                                                                                     "tpl": "${cve_id|raw}",
-                                                                                    
+
                                                                                 }
                                                                             },
 
@@ -319,7 +323,7 @@
                 },
                 {
                     "type": "alert",
-                    "body": "有问题可以联系wx:cqwanhl",
+                    "body": "有问题可以联系wx:cqwanhl,协议请遵循Apache 2.0",
                     "className": "text-center"
                 }
 

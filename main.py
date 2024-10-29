@@ -1,4 +1,5 @@
 from flask import Flask
+from config import Config
 
 app = Flask(__name__)
 
@@ -11,4 +12,4 @@ app.register_blueprint(path)
 app.jinja_env.auto_reload = True
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.run("127.0.0.1", 7777)
+app.run("0.0.0.0", Config.port)
